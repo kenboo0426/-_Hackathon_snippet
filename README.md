@@ -1,4 +1,24 @@
 # README
+## Building and Running a project in docker containers
+#### Building and Running docker containers
+```shell
+docker-compose up -d --build
+```
+
+#### Enter in a container
+```shell
+#Enter in a backend container
+docker-compose exec backend /bin/bash
+```
+```shell
+#Enter in a frontend container
+docker-compose exec frontend /bin/ash
+```
+
+#### Stop containers and remove containers, images, and networks
+```shell
+docker-compose down --rmi all
+```
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
