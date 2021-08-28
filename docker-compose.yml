@@ -1,0 +1,21 @@
+version: "3"
+
+services: 
+  backend:
+    build: ./docker/ruby
+    ports: 
+      - "3000:3000"
+    volumes: 
+      - .:/app
+    stdin_open: True
+    tty: True
+
+  frontend:
+    build: ./docker/vue3
+    ports: 
+      - "8080:8080"
+    volumes: 
+      - ./frontend:/app
+    stdin_open: True
+    tty: True
+    
