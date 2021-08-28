@@ -7,5 +7,5 @@ RUN apt-get update && apt-get install -y \
       postgresql-client \
       yarn
 WORKDIR /app
-COPY . .
-RUN bundle install 
+
+CMD [ "/bin/bash" ]
