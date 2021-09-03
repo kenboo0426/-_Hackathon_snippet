@@ -1,0 +1,104 @@
+import { createStore } from vuex
+import api from './services/api'
+
+export const store = createStore({
+    state() {
+        return {
+            isAuthenticated: false,
+            loginUser: "",
+            snippet: null,
+            snippets: [],
+        }
+    },
+    mutations: {
+        //Auth
+        getUserInfo: (state)=> {
+            api.get('url').then((response)=> { //please replace appropriate url
+                state.loginUser = response.data
+                state.isAuthenticated = true
+                console.log("getUserInfo() "+state.loginUser)
+            }).catch((error)=> {
+                console.log(error)
+            })
+        },
+        resetUserInfo: (state)=> {
+            state.loginUser = ""
+            state.isAuthenticated = false
+        },
+        //Snippets
+        getItems: (state, params)=> {
+            api.get('url').then((response)=> {
+                console.log("getItems() ",JSON.stringify(response.data))
+                snippets = response.data
+            }).catch((error)=> {
+                console.log(error)
+            })
+        },
+        getItem: (state, id)=> {
+            api.get('url').then((response)=> {
+                console.log("getItem() ",JSON.stringify(response.data))
+                snippet = response.data
+            }).catch((error)=> {
+                console.log(error)
+            })
+        },
+        flash: (state)=> {
+            state.snippet = null
+        }
+    },
+    actions: {
+        //Auth
+        login: (context, obj)=> {
+            api.post('url',{  //please replace appropriate url
+                'username': obj.username,
+                'email': obj.email,
+                'password': obj.password,
+            }).then((response)=> {
+                //set JWToken in local storage
+                localStorage.setItem('access', response.data.access)
+                console.log("set JWT: "+response.data.access)
+                context.commit('getUserInfo')
+                console.log("LOGIN successful!")
+            }).catch((error)=> {
+                console.log(error)
+            })
+        },
+        logout: (context)=> {
+            //remove JWToken
+            localStorage.removeItem('access')
+            //reset user info
+            context.commit('resetUserInfo')
+            console.log("LOGOUT successful!")
+        },
+        //Snippets
+        create: (context, obj)=> {
+            api.post('url',{
+                "title": obj.title,
+                "content":obj.content,
+                "user":obj.user
+            }).then((response)=> {
+                console.log("create() ",JSON.stringify(response.data))
+            }).catch((error)=> {
+                console.log(error)
+            })
+        },
+        update: (context, obj)=> {
+            api.post('url',{
+                "title": obj.title,
+                "content":obj.content
+            }).then((response)=> {
+                console.log("update() ",JSON.stringify(response.data))
+            }).catch((error)=> {
+                console.log(error)
+            })
+        },
+        delete: (context, id)=> {
+            api.delete('url').then((response)=> {
+                context.commit('flash')
+                console.log("delete() ",JSON.stringify(response.data))
+            }).catch((error)=> {
+                console.log(error)
+            })
+        }
+    },
+})
