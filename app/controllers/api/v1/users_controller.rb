@@ -1,6 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      before_action :authenticate!, only: %i[show]
       protect_from_forgery with: :null_session
       before_action :set_user, only: [:show, :update, :destroy]
 
@@ -35,6 +36,26 @@ module Api
         end
       end
 
+      def current_user
+        return @current_user if @current_user
+        return unless bearer_token
+    
+        payload, = User.decode bearer_token
+        @current_user ||= User.find_by(id: payload['user_id'])
+      end
+    
+      def authenticate!
+        return if current_user
+    
+        head :unauthorized
+      end
+    
+      def bearer_token
+        header = request.headers['Authorization']
+    
+        header.gsub(/^Bearer /, '') if header&.match(/^Bearer /)
+      end
+
       private
 
       def set_user
@@ -42,7 +63,8 @@ module Api
       end
 
       def user_params
-        params.permit(:name, :email, :password)
+        # params.permit(:name, :email, :password)
+        params.require(:user).permit( :name, :email, :password, :password_confirmation)
       end
     end
   end

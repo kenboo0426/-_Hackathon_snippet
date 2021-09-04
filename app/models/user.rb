@@ -1,5 +1,4 @@
 class User < ApplicationRecord
+  authenticates_with_sorcery!
   has_many :posts, dependent: :destroy
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
 end
