@@ -52,7 +52,7 @@ module Api
     
       def bearer_token
         header = request.headers['Authorization']
-    
+
         header.gsub(/^Bearer /, '') if header&.match(/^Bearer /)
       end
 
@@ -64,7 +64,7 @@ module Api
 
       def user_params
         # params.permit(:name, :email, :password)
-        params.require(:user).permit( :name, :email, :password, :password_confirmation)
+        params.permit( :name, :email, :password, :password_confirmation)
       end
     end
   end
