@@ -2,16 +2,16 @@
     <Header></Header>
     <main>
     <section>
-        <div>
-            <label for="username">ユーザーネーム</label>
-            <input type="text" id="username" v-model="username">
+        <div class="form-floating mb-3">
+            <label for="email">メールアドレス</label>
+            <input class="form-control" type="text" id="email" v-model="email">
         </div>
-        <div>
+        <div class="form-floating mb-3">
             <label for="password">パスワード</label>
-            <input type="password" id="password" v-model="password">
+            <input class="form-control" type="password" id="password" v-model="password">
         </div>
         <div>
-            <button @click="login">ログイン</button>
+            <button @click="login" type="button" class="btn btn-outline-success">ログイン</button>
         </div>
     </section>
     </main>
@@ -20,7 +20,7 @@
 
 <script>
 import Header from '../components/Header.vue'
-import Footer from '../componentsFooter.vue'
+import Footer from '../components/Footer.vue'
 
 export default {
     name: 'LoginPage',
@@ -30,16 +30,22 @@ export default {
     },
     data() {
         return {
-            username: "",
             email: "",
             password: "",
         }
     },
     methods: {
         login() {
-            this.$store.dispatch('login',{"username":this.username,"email":this.email,"password":this.password})
+            this.$store.dispatch('login',{"email":this.email,"password":this.password})
             this.$router.push('/')
         }
     }
 }
 </script>
+
+<style>
+    section {
+        width: 20%;
+        margin: 20px 40%;
+    }
+</style>

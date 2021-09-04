@@ -20,7 +20,7 @@
 
 <script>
 import Header from '../components/Header.vue'
-import Footer from '../componentsFooter.vue'
+import Footer from '../components/Footer.vue'
 
 export default {
     name: 'CreatePage',
@@ -32,17 +32,17 @@ export default {
         return{
             title: "",
             content: "", 
-            user: "",
+            user_id: "",
         }
     },
     methods: {
         createItem() {
-            this.$store.dispatch('create',{"title":this.title, "content":this.content, "user":this.user})
+            this.$store.dispatch('create',{"title":this.title, "content":this.content, "user_id":this.user_id})
             this.$router.push('/')
         }
     },
     created() {
-        this.user = this.$store.state.loginUser
+        this.user_id = this.$store.state.loginUser.id
     }
 }
 </script>

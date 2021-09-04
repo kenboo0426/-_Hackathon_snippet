@@ -22,7 +22,6 @@
 <script>
 import Footer from '../components/Footer.vue'
 import Header from '../components/Header.vue'
-import Footer from '../componentsFooter.vue'
 
 export default {
     name: 'EditPage',

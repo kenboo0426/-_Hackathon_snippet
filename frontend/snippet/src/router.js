@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"
-import store from './store'
+import { store } from './store'
 import TopPage from './views/TopPage.vue'
 import DetailPage from './views/DetailPage.vue'
 import EditPage from './views/EditPage.vue'

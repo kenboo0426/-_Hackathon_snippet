@@ -14,7 +14,7 @@
             </ul>
         </div>
         <div>
-            <router-link>スニペットを作る</router-link>
+            <router-link to="/create">スニペットを作る</router-link>
         </div>
     </section>
     </main>
@@ -23,7 +23,7 @@
 
 <script>
 import Header from '../components/Header.vue'
-import Footer from '../componentsFooter.vue'
+import Footer from '../components/Footer.vue'
 
 export default {
     name: 'MyPage',

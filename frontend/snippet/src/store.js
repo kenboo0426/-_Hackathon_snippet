@@ -1,11 +1,11 @@
-import { createStore } from vuex
+import { createStore } from 'vuex'
 import api from './services/api'
 
 export const store = createStore({
     state() {
         return {
             isAuthenticated: false,
-            loginUser: "",
+            loginUser: null,
             snippet: null,
             snippets: [],
         }
@@ -22,7 +22,7 @@ export const store = createStore({
             })
         },
         resetUserInfo: (state)=> {
-            state.loginUser = ""
+            state.loginUser = null
             state.isAuthenticated = false
         },
         //Snippets
@@ -50,7 +50,6 @@ export const store = createStore({
         //Auth
         login: (context, obj)=> {
             api.post('url',{  //please replace appropriate url
-                'username': obj.username,
                 'email': obj.email,
                 'password': obj.password,
             }).then((response)=> {
@@ -75,7 +74,7 @@ export const store = createStore({
             api.post('url',{
                 "title": obj.title,
                 "content":obj.content,
-                "user":obj.user
+                "user_id":obj.user_id
             }).then((response)=> {
                 console.log("create() ",JSON.stringify(response.data))
             }).catch((error)=> {
