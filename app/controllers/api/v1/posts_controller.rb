@@ -13,6 +13,10 @@ module Api
         render json: { status: 'SUCCESS', message: 'Loaded the post', post_data: @post }
       end
 
+      def search
+        @posts = Post.all.order(title: params[:title])
+      end
+
       def creat
         @post = Post.new(post_params)
         @user = @post.user
