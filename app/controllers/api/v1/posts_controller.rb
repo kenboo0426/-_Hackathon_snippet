@@ -19,6 +19,12 @@ module Api
         @posts = @q.result(distinct: true)
         render json: { status: 'SUCCESS', message: 'Loaded posts', post_data: @posts }
       end
+      
+      def edit
+        @tags = @post.tags 
+        render json: { status: 'SUCCESS', message: 'Loaded the post', post_data: @post, tag_data: @tags }
+
+      end
 
       def creat
         @post = Post.new(post_params)
