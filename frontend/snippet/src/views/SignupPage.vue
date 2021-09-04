@@ -2,20 +2,20 @@
     <Header></Header>
     <main>
     <section>
-        <div class="form-floating mb-3">
-            <label for="username">ユーザーネーム</label>
+        <div class="mb-3">
+            <label for="username" class="form-labe fw-bold">ユーザーネーム</label>
             <input class="form-control" type="text" id="username" v-model="username">
         </div>
-        <div class="form-floating mb-3">
-            <label for="email">メールアドレス</label>
+        <div class="mb-3">
+            <label for="email" class="form-label fw-bold">メールアドレス</label>
             <input class="form-control" type="email" id="email" v-model="email">
         </div>
-        <div class="form-floating mb-3">
-            <label for="password">パスワード</label>
+        <div class="mb-3">
+            <label for="password" class="form-label fw-bold">パスワード</label>
             <input class="form-control" type="password" id="password" v-model="password">
         </div>
         <div>
-            <button @click="signUp" type="button" class="btn btn-outline-success">サインアップ</button>
+            <button @click="signUp" type="button" class="btn btn-outline-success fw-bold">サインアップ</button>
         </div>
         <div v-if="message">
             <h3>{{message}}</h3>
@@ -46,13 +46,13 @@ export default {
     },
     methods: {
         signUp() {
-            api.post('url',{
-                "username":this.username,
+            api.post('users/',{
+                "name":this.username,
                 "email":this.email,
                 "password":this.password
             }).then((response)=> {
                 console.log("signup!",JSON.stringify(response.data))
-                this.$sotre.push('/')
+                this.$router.push('/login')
             }).catch((error)=> {
                 this.message = error
                 console.log(error)

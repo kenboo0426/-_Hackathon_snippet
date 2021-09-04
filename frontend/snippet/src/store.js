@@ -12,8 +12,8 @@ export const store = createStore({
     },
     mutations: {
         //Auth
-        getUserInfo: (state)=> {
-            api.get('url').then((response)=> { //please replace appropriate url
+        getUserInfo: (state, id)=> {
+            api.get('users/'+id+'/').then((response)=> { 
                 state.loginUser = response.data
                 state.isAuthenticated = true
                 console.log("getUserInfo() "+state.loginUser)
@@ -27,7 +27,7 @@ export const store = createStore({
         },
         //Snippets
         getItems: (state, params)=> {
-            api.get('url').then((response)=> {
+            api.get('posts/'+params).then((response)=> {
                 console.log("getItems() ",JSON.stringify(response.data))
                 snippets = response.data
             }).catch((error)=> {
@@ -35,7 +35,7 @@ export const store = createStore({
             })
         },
         getItem: (state, id)=> {
-            api.get('url').then((response)=> {
+            api.get('posts/'+id+'/').then((response)=> {
                 console.log("getItem() ",JSON.stringify(response.data))
                 snippet = response.data
             }).catch((error)=> {
@@ -49,14 +49,14 @@ export const store = createStore({
     actions: {
         //Auth
         login: (context, obj)=> {
-            api.post('url',{  //please replace appropriate url
+            api.post('sessions/',{  //please replace appropriate url
                 'email': obj.email,
                 'password': obj.password,
             }).then((response)=> {
                 //set JWToken in local storage
                 localStorage.setItem('access', response.data.access)
                 console.log("set JWT: "+response.data.access)
-                context.commit('getUserInfo')
+                context.commit({type:'getUserInfo',id:response.data.user_id})
                 console.log("LOGIN successful!")
             }).catch((error)=> {
                 console.log(error)
@@ -71,7 +71,7 @@ export const store = createStore({
         },
         //Snippets
         create: (context, obj)=> {
-            api.post('url',{
+            api.post('users/',{
                 "title": obj.title,
                 "content":obj.content,
                 "user_id":obj.user_id
@@ -82,7 +82,7 @@ export const store = createStore({
             })
         },
         update: (context, obj)=> {
-            api.post('url',{
+            api.post('posts/'+obj.id,{
                 "title": obj.title,
                 "content":obj.content
             }).then((response)=> {
@@ -92,7 +92,7 @@ export const store = createStore({
             })
         },
         delete: (context, id)=> {
-            api.delete('url').then((response)=> {
+            api.delete('posts/'+id+'/').then((response)=> {
                 context.commit('flash')
                 console.log("delete() ",JSON.stringify(response.data))
             }).catch((error)=> {

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let url = ''  //please replace appropriate URL!
+let url = 'http://0.0.0.0:3000/api/v1/'  //please replace appropriate URL!
 //Create an instance
 const api = axios.create({
     baseURL: url, 

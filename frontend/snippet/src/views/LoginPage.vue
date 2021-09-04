@@ -2,16 +2,16 @@
     <Header></Header>
     <main>
     <section>
-        <div class="form-floating mb-3">
-            <label for="email">メールアドレス</label>
+        <div class="mb-3">
+            <label for="email" class="form-label fw-bold">メールアドレス</label>
             <input class="form-control" type="text" id="email" v-model="email">
         </div>
-        <div class="form-floating mb-3">
-            <label for="password">パスワード</label>
+        <div class="mb-3">
+            <label for="password" class="form-label fw-bold">パスワード</label>
             <input class="form-control" type="password" id="password" v-model="password">
         </div>
         <div>
-            <button @click="login" type="button" class="btn btn-outline-success">ログイン</button>
+            <button @click="login" type="button" class="btn btn-outline-success fw-bold">ログイン</button>
         </div>
     </section>
     </main>
