@@ -6,27 +6,28 @@ module Api
     
       def index
         @posts = Post.all.order(created_at: :desc)
-        render json: { status: 'SUCCESS', message: 'Loaded posts', data: @posts }
+        render json: { status: 'SUCCESS', message: 'Loaded posts', post_data: @posts }
       end 
     
       def show
-        render json: { status: 'SUCCESS', message: 'Loaded the post', data: @post }
+        render json: { status: 'SUCCESS', message: 'Loaded the post', post_data: @post }
       end
 
       def creat
         @post = Post.new(post_params)
+        @user = @post.user
         if @post.save
-          render json: { status: 'SUCCESS', data: @post }
+          render json: { status: 'SUCCESS', post_data: @post, user_data: @user }
         else
-          render json: { status: 'ERROR', data: post.errors }
+          render json: { status: 'ERROR', post_data: post.errors }
         end
       end
 
       def update
         if @post.update(post_params)
-          render json: { status: 'SUCCESS', message: 'Updated the post', data: @post }
+          render json: { status: 'SUCCESS', message: 'Updated the post', post_data: @post }
         else
-          render json: { status: 'ERROR', message: 'Not updated', data: @post.errors }
+          render json: { status: 'ERROR', message: 'Not updated', post_data: @post.errors }
         end
       end
     
