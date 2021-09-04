@@ -18,11 +18,13 @@ module Api
         render json: { status: 'SUCCESS', message: 'Loaded the post', post_data: @post, tag_data: @tags }
       end
 
-      def creat
+      def create
         @post = Post.new(post_params)
+        @tag = Tag.new(name: params[:name])
         @user = @post.user
-        if @post.save
-          render json: { status: 'SUCCESS', post_data: @post, user_data: @user }
+        if @post.save && @tag.save
+          @post_tag = PostTag.new(post_id: @post.id, tag_id: @tag.id)
+          return render json: { status: 'SUCCESS', post_data: @post, user_data: @user }
         else
           render json: { status: 'ERROR', post_data: post.errors }
         end
