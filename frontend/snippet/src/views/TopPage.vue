@@ -2,15 +2,16 @@
     <Header></Header>
     <main>
         <!-- search snippets -->
-        <section>
-            <input type="text" v-model="keywords">
-            <button @click="searchItems">検索</button>
+        <section class="mt-20">
+            <label for="search" class="form-label fw-bold fs-4">スニペットを探す</label>
+            <input id="search" type="text" class="form-control form-control-lg" v-model="keywords">
+            <button type="button" class="btn btn-outline-success fw-bold mt-3" @click="searchItems">検索</button>
         </section>
 
         <!-- snippets list -->
         <section v-if="flag">
-            <h2 v-if="$store.state.snippets">検索結果</h2>
-            <h2 v-else>一致する検索結果はありませんでした。</h2>
+            <p v-if="$store.state.snippets">検索結果</p>
+            <p v-else>一致する検索結果はありませんでした。</p>
             <ul>
                 <li v-for="snippet in $store.state.snippets" :key="snippet.id">
                     <div key="snippet.id">
@@ -52,3 +53,9 @@ export default {
 
 }
 </script>
+
+<style>
+    label {
+        color: blueviolet;
+    }
+</style>

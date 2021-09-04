@@ -12,11 +12,11 @@ export const store = createStore({
     },
     mutations: {
         //Auth
-        getUserInfo: (state, id)=> {
-            api.get('users/'+id+'/').then((response)=> { 
-                state.loginUser = response.data
+        getUserInfo: (state, obj)=> {
+            api.get('users/' + obj.id + '/').then((response)=> { 
+                state.loginUser = response.data.data
                 state.isAuthenticated = true
-                console.log("getUserInfo() "+state.loginUser)
+                console.log("getUserInfo() "+JSON.stringify(state.loginUser))
             }).catch((error)=> {
                 console.log(error)
             })
@@ -54,9 +54,11 @@ export const store = createStore({
                 'password': obj.password,
             }).then((response)=> {
                 //set JWToken in local storage
-                localStorage.setItem('access', response.data.access)
-                console.log("set JWT: "+response.data.access)
-                context.commit({type:'getUserInfo',id:response.data.user_id})
+                console.log("JWT ",JSON.stringify(response.data))
+                localStorage.setItem('access', response.data.token)
+                console.log("set JWT: "+response.data.token)
+                console.log("userID ",response.data.user.id)
+                context.commit({type:'getUserInfo',id:response.data.user.id})
                 console.log("LOGIN successful!")
             }).catch((error)=> {
                 console.log(error)
@@ -71,10 +73,10 @@ export const store = createStore({
         },
         //Snippets
         create: (context, obj)=> {
-            api.post('users/',{
+            api.post('posts/',{
                 "title": obj.title,
                 "content":obj.content,
-                "user_id":obj.user_id
+                "user_id":obj.user_id,
             }).then((response)=> {
                 console.log("create() ",JSON.stringify(response.data))
             }).catch((error)=> {

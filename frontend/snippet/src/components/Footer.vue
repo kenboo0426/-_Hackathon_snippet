@@ -15,7 +15,7 @@ export default {
 <style>
     footer {
         width: 100%;
-        background-color: rgb(228, 205, 177);
+        background-color: hotpink;
         position: absolute;
         bottom: 0;
     }

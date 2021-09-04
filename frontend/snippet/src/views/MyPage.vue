@@ -2,7 +2,8 @@
     <Header></Header>
     <main>
     <section>
-        <h1>マイページ</h1>
+        <h4 class="uname fw-bold">{{$store.state.loginUser.name}}さんのページ</h4>
+        <!-- coming soooooooooooon!
         <div>
             <h2>お気に入りのスニペット</h2>
             <ul>
@@ -13,12 +14,13 @@
                 </li>
             </ul>
         </div>
-        <div>
-            <router-link to="/create">スニペットを作る</router-link>
+        -->
+        <div class="mt-3">
+            <router-link class="btn btn-info" to="/create">スニペットを作る</router-link>
         </div>
     </section>
     </main>
-    <Header></Header>
+    <Footer></Footer>
 </template>
 
 <script>
@@ -38,3 +40,9 @@ export default {
     }
 }
 </script>
+
+<style>
+    .uname {
+        color: blueviolet;
+    }
+</style>

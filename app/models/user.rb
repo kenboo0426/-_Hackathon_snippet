@@ -9,7 +9,7 @@ class User < ApplicationRecord
     issue_token(payload.merge(exp: expires_in))
   end
 
-  def decode(token)
+  def self.decode(token)
     JWT.decode(token, SECRET_KEY, true, algorithm: 'HS256')
   end
 

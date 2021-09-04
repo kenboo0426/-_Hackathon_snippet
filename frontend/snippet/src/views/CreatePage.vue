@@ -3,16 +3,16 @@
     <!-- create page -->
     <main>
     <section>
-        <h2>新規作成</h2>
-        <div>
-            <label for="title">Title</label>
-            <input type="text" id="title" v-model="title">
+        <h4 class="fw-bold sni">スニペットを作る</h4>
+        <div class="md-3 mt-3">
+            <label for="title" class="form-label fw-bold">Title</label>
+            <input type="text" id="title" class="form-control form-control-lg" v-model="title">
         </div>
-        <div>
-            <label for="content">Content</label>
-            <textarea id="content" cols="30" rows="10" v-model="content"></textarea>
+        <div class="md-3 mt-3">
+            <label for="content" class="form-label fw-bold">Content</label>
+            <textarea id="content" cols="30" rows="10" class="form-control form-control-lg" v-model="content"></textarea>
         </div>
-        <button @click="createItem">作成</button>
+        <button class="btn btn-outline-success fw-bold mt-3"  @click="createItem">作成</button>
     </section>
     </main>
     <Footer></Footer>
@@ -46,3 +46,9 @@ export default {
     }
 }
 </script>
+
+<style>
+    .sni {
+        color: blueviolet;
+    }
+</style>
