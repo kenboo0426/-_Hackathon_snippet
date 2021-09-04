@@ -24,6 +24,7 @@ module Api
         @user = @post.user
         if @post.save && @tag.save
           @post_tag = PostTag.new(post_id: @post.id, tag_id: @tag.id)
+          @post_tag.save
           return render json: { status: 'SUCCESS', post_data: @post, user_data: @user }
         else
           render json: { status: 'ERROR', post_data: post.errors }
@@ -44,7 +45,7 @@ module Api
       end
     
       def post_params
-        params.require(:post).permit(:content, :title, :user_id)
+        params.permit(:content, :title, :user_id)
       end
 
       def set_post
