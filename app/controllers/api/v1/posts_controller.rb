@@ -5,7 +5,8 @@ module Api
       skip_before_action :verify_authenticity_token#動作確認用
     
       def index
-        @posts = Post.all.order(created_at: :desc)
+        @q = Post.ransack(title_or_tags_name_cont: params[:q])
+        @posts = @q.result(distinct: true)
         render json: { status: 'SUCCESS', message: 'Loaded posts', post_data: @posts }
       end 
     
@@ -14,7 +15,15 @@ module Api
       end
 
       def search
-        @posts = Post.all.order(title: params[:title])
+        @q = Post.ransack(title_or_tags_name_cont: params[:q])
+        @posts = @q.result(distinct: true)
+        render json: { status: 'SUCCESS', message: 'Loaded posts', post_data: @posts }
+      end
+      
+      def edit
+        @tags = @post.tags 
+        render json: { status: 'SUCCESS', message: 'Loaded the post', post_data: @post, tag_data: @tags }
+
       end
 
       def creat
