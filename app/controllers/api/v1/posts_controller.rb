@@ -13,8 +13,9 @@ module Api
         render json: { status: 'SUCCESS', message: 'Loaded the post', post_data: @post }
       end
 
-      def search
-        @posts = Post.all.order(title: params[:title])
+      def edit
+        @tags = @post.tags 
+        render json: { status: 'SUCCESS', message: 'Loaded the post', post_data: @post, tag_data: @tags }
       end
 
       def creat
