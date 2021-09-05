@@ -30,12 +30,12 @@ module Api
         @post = Post.new(post_params)
         @tag = Tag.new(name: params[:name])
         @user = @post.user
-        if @post.save && @tag.save
+        if @post.save 
+          ##@tags = set_tags.map {|set_tag| @post.tags.new(set_tag)}
           @post_tag = PostTag.new(post_id: @post.id, tag_id: @tag.id)
-          @post_tag.save
-          return render json: { status: 'SUCCESS', post_data: @post, user_data: @user }
+          render json: { status: 'SUCCESS', post_data: @post, user_data: @user }
         else
-          render json: { status: 'ERROR', post_data: post.errors }
+          render json: { status: 'ERROR', post_data: @post.errors }
         end
       end
 
@@ -59,6 +59,11 @@ module Api
       def set_post
         @post = Post.find(params[:id])
       end
+
+      ##def set_tags
+        ##params.permit(name: [])
+      ##end
+      
     end
   end
 end
