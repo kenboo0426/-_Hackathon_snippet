@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     namespace 'v1' do
       resources :sessions
       resources :users
+      resources :comments
     end
       get "search", to: 'api/v1/posts#search'
   end
