@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2021_09_05_025222) do
 
   create_table "comments", force: :cascade do |t|
@@ -26,6 +27,15 @@ ActiveRecord::Schema.define(version: 2021_09_05_025222) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_likes_on_post_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "post_tags", force: :cascade do |t|
@@ -62,6 +72,8 @@ ActiveRecord::Schema.define(version: 2021_09_05_025222) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "likes", "posts", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "likes", "users", on_update: :cascade, on_delete: :cascade
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "post_tags", "posts", on_delete: :cascade

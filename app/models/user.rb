@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
   has_many :posts, dependent: :destroy
+  has_many :likes
+  has_many :posts, through: :likes
   has_many :comments
 
   SECRET_KEY = Rails.application.secrets.secret_key_base
